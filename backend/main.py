@@ -51,7 +51,7 @@ CLASS_NAMES = {
     "PepperBell": ['Not PepperBell Leaf', 'Pepper bell Bacterial spot', 'Pepper bell healthy'],
     "Tomato": ['Not Tomato Leaf', 'Tomato Bacterial spot', 'Tomato Early blight', 'Tomato Late blight', 'Tomato Leaf Mold', 'Tomato Septoria leaf spot', 'Tomato Spider mites Two spotted spider mite', 'Tomato Target Spot', 'Tomato Tomato YellowLeaf Curl Virus', 'Tomato Tomato mosaic virus', 'Tomato healthy'],
     "Apple": ['Apple scab', 'Apple Black rot', 'Apple Cedar apple rust', 'Healthy Apple', 'Not Apple Leaf'],
-    "Corn": ['Corn (maize) Cercospora leaf spot Gray leaf_spot', 'Corn (maize) Common rust ', 'Corn_(maize)___Northern_Leaf_Blight', 'Corn_(maize)___healthy', 'Not Corn Leaf'],
+    "Corn": ['Corn (maize) Cercospora Gray', 'Corn (maize) Common rust ', 'Corn_(maize)___Northern_Leaf_Blight', 'Corn_(maize)___healthy', 'Not Corn Leaf'],
     "Grape": ['Grape___Black_rot', 'Grape___Esca_(Black_Measles)', 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 'Grape___healthy', 'Not Grape Leaf'],
     "Cherry": ['Cherry_(including_sour)___Powdery_mildew', 'Cherry_(including_sour)___healthy', 'Not Cherry Leaf'],
     "Peach": ['Not Peach Leaf', 'Peach___Bacterial_spot', 'Peach___healthy']

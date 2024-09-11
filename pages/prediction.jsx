@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import "./global.css";
 
+
 export default function PlantDiseaseClassifier() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [plantType, setPlantType] = useState('Select Plant Type');
   const [result, setResult] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
+  const flipCard = () => {
+    const card = document.querySelector('.card');
+    card.classList.toggle('is-flipped');
+  }
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -40,6 +46,7 @@ export default function PlantDiseaseClassifier() {
       return;
     }
 
+    setIsLoading(true); // Start the loading spinner
     const formData = new FormData();
     formData.append('file', selectedFile);
     formData.append('plant_type', plantType);
@@ -59,7 +66,16 @@ export default function PlantDiseaseClassifier() {
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
       alert('There was a problem with the upload. Check the console for more details.');
+    } finally {
+      setIsLoading(false); // Stop the loading spinner
     }
+  };
+
+  const resetForm = () => {
+    setSelectedFile(null);
+    setPlantType('Select Plant Type');
+    setResult('');
+    setImagePreview(null);
   };
 
   return (
@@ -72,7 +88,7 @@ export default function PlantDiseaseClassifier() {
         <div className="content">
           <div className="back">
             <div className="back-content">
-              <strong>Check Now</strong>
+              <strong onClick={flipCard}>Check Now</strong>
             </div>
           </div>
 
@@ -111,7 +127,11 @@ export default function PlantDiseaseClassifier() {
                     onDragLeave={handleDragLeave}
                     onDrop={handleDrop}
                   >
-                    {imagePreview?(<img className='img1' src={imagePreview} alt="Selected file" />):(<>Drag & Drop or Click to Upload Image</>)}
+                    {imagePreview ? (
+                      <img className='img1' src={imagePreview} alt="Selected file" />
+                    ) : (
+                      <>Drag & Drop or Click to Upload Image</>
+                    )}
                     <input
                       type="file"
                       id="fileInput"
@@ -121,10 +141,19 @@ export default function PlantDiseaseClassifier() {
                   </div>
                 </div>
              
-                <button id="uploadButton" onClick={uploadImage}>
-                  Upload Image
-                </button>
+                {isLoading ? (
+                  <div className="loading-spinner">Loading...</div>
+                ) : (
+                  <button id="uploadButton" onClick={uploadImage}>
+                    Upload Image
+                  </button>
+                )}
+                
                 <div id="result">{result}</div>
+                
+                {selectedFile && (
+                  <button onClick={resetForm} id="resetButton">Reset</button>
+                )}
               </div>
             </div>
           </div>

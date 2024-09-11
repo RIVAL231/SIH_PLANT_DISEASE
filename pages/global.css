@@ -95,16 +95,20 @@
   align-items: center;
   justify-content: center;
 }
-     
+     .img1{
+      width: 50%;
+      height: 100%;
+     }
 .card {
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: visible;
     width: 60vw;
-    height: 80vh;
+    height: 85vh;
     position: absolute;
-    bottom: 5%;
+
+    bottom: 0%;
     right: 20%;
   }
   
