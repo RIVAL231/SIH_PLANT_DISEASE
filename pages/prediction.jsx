@@ -64,71 +64,48 @@ export default function PlantDiseaseClassifier() {
 
   return (
     <div className="main">
-      <div id="heading">
+      <div className="container">
         <h1>Plant Disease Classifier</h1>
-      </div>
-
-      <div className="card">
-        <div className="content">
-          <div className="back">
-            <div className="back-content">
-              <strong>Check Now</strong>
-            </div>
-          </div>
-
-          <div className="front">
-            <div className="img">
-              <div className="circle"></div>
-              <div className="circle" id="right"></div>
-              <div className="circle" id="bottom"></div>
-            </div>
-
-            <div className="front-content">
-              <div className="description">
-                <div className="title">
-                  <select id="plantType" value={plantType} onChange={(e) => setPlantType(e.target.value)}>
-                    <option value="Potato">Potato</option>
-                    <option value="Mango">Mango</option>
-                    <option value="Rice">Rice</option>
-                    <option value="Tea">Tea</option>
-                    <option value="Cauliflower">Cauliflower</option>
-                    <option value="Wheat">Wheat</option>
-                    <option value="Brinjal">Brinjal</option>
-                    <option value="PepperBell">PepperBell</option>
-                    <option value="Tomato">Tomato</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Corn">Corn</option>
-                    <option value="Grape">Grape</option>
-                    <option value="Cherry">Cherry</option>
-                    <option value="Peach">Peach</option>
-                  </select>
-                  <br /><br />
-                  <div
-                    className="upload-box"
-                    id="uploadBox"
-                    onClick={() => document.getElementById('fileInput').click()}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                  >
-                    {imagePreview?(<img className='img1' src={imagePreview} alt="Selected file" />):(<>Drag & Drop or Click to Upload Image</>)}
-                    <input
-                      type="file"
-                      id="fileInput"
-                      style={{ display: 'none' }}
-                      onChange={handleFileChange}
-                    />
-                  </div>
-                </div>
-             
-                <button id="uploadButton" onClick={uploadImage}>
-                  Upload Image
-                </button>
-                <div id="result">{result}</div>
-              </div>
-            </div>
-          </div>
+        <select id="plantType" value={plantType} onChange={(e) => setPlantType(e.target.value)}>
+          <option value="Potato">Potato</option>
+          <option value="Mango">Mango</option>
+          <option value="Rice">Rice</option>
+          <option value="Tea">Tea</option>
+          <option value="Cauliflower">Cauliflower</option>
+          <option value="Wheat">Wheat</option>
+          <option value="Brinjal">Brinjal</option>
+          <option value="PepperBell">PepperBell</option>
+          <option value="Tomato">Tomato</option>
+          <option value="Apple">Apple</option>
+          <option value="Corn">Corn</option>
+          <option value="Grape">Grape</option>
+          <option value="Cherry">Cherry</option>
+          <option value="Peach">Peach</option>
+        </select>
+        <div
+          className="upload-box"
+          id="uploadBox"
+          onClick={() => document.getElementById('fileInput').click()}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          {imagePreview ? (
+            <img className='img1' src={imagePreview} alt="Selected file" />
+          ) : (
+            <>Drag & Drop or Click to Upload Image</>
+          )}
+          <input
+            type="file"
+            id="fileInput"
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
         </div>
+        <button id="uploadButton" onClick={uploadImage}>
+          Check Now
+        </button>
+        <div id="result">{result}</div>
       </div>
     </div>
   );
