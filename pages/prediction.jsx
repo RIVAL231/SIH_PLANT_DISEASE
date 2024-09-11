@@ -65,7 +65,7 @@ export default function PlantDiseaseClassifier() {
   return (
     <div className="main">
       <div className="container">
-        <h1>Plant Disease Classifier</h1>
+        <h1 style={{margin:"0"}}>Plant Disease Classifier</h1>
         <select id="plantType" value={plantType} onChange={(e) => setPlantType(e.target.value)}>
           <option value="Potato">Potato</option>
           <option value="Mango">Mango</option>
@@ -103,7 +103,7 @@ export default function PlantDiseaseClassifier() {
           />
         </div>
         <button id="uploadButton" onClick={uploadImage}>
-          Upload Image
+          Check Now
         </button>
         <div id="result">{result}</div>
       </div>
