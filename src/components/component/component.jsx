@@ -33,7 +33,7 @@ export function Component() {
     (<div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center bg-[#4CAF50] text-white">
         <Link href="#" className="flex items-center justify-center" prefetch={false}>
-          <LeafIcon className="h-6 w-6" />
+          <LeafIcon className="h-10 w-10" />
           <span className="sr-only">Crop Disease Classifier</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
