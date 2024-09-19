@@ -5,3 +5,4 @@ numpy
 pillow
 gunicorn
 google-generativeai
+python-dotenv
