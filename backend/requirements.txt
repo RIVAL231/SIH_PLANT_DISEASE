@@ -1,8 +1,8 @@
 fastapi
 uvicorn
-tensorflow
-numpy
-pillow
-gunicorn
-google-generativeai
 python-dotenv
+google-generativeai
+tensorflow
+pillow
+numpy
+python-multipart
