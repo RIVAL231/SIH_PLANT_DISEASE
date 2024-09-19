@@ -133,4 +133,6 @@ async def predict(file: UploadFile = File(...), plant_type: str = Form(...)):
     return result
 
 if __name__ == "__main__":
-    uvicorn.run(app, host='localhost', port=8000)
+    # Use dynamic port for Render deployment
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host='0.0.0.0', port=port)
