@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import "./global.css";
+import { Chatbot } from '@/components/chatbot';
 
 export default function PlantDiseaseClassifier() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -64,6 +65,7 @@ export default function PlantDiseaseClassifier() {
 
   return (
     <div className="main">
+      <Chatbot />
       <div className="container">
         <h1 style={{margin:"0"}}>Plant Disease Classifier</h1>
         <select id="plantType" value={plantType} onChange={(e) => setPlantType(e.target.value)}>
