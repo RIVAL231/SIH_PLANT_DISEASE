@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, Form, File, UploadFile
-from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -31,15 +31,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Jinja2 templates setup
-templates = Jinja2Templates(directory="templates")
-
 # In-memory store for conversation history
 conversation_history = {}
 
 # Define plant disease detection model paths and class names
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# Model paths and class names for plant types (used for prediction)
 MODELS = {
     "Potato": os.path.join(BASE_DIR, "potato_model_v1.h5"),
     "Mango": os.path.join(BASE_DIR, "mango_model_v1.h5"),
@@ -74,12 +70,16 @@ CLASS_NAMES = {
     "Peach": ['Not Peach Leaf', 'Peach___Bacterial_spot', 'Peach___healthy']
 }
 
+# Define the request body structure for the chatbot
+class ChatRequest(BaseModel):
+    message: str
 
-# Helper functions
+# Helper function to read the uploaded file as an image
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))
     return image
 
+# Helper function to format prediction results
 def format_prediction(predicted_class, confidence):
     if confidence < 60:
         confidence_message = f"{confidence}% - Confidence very low"
@@ -87,22 +87,17 @@ def format_prediction(predicted_class, confidence):
         confidence_message = f"{confidence}%"
     return {'class': predicted_class, 'confidence': confidence_message}
 
-# Root endpoint
-@app.get("/")
-async def root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "conversation": conversation_history.get("default_user", [])})
-
 # Chatbot endpoint
 @app.post("/chat")
-async def handle_input(request: Request, user_input: str = Form(...)):
+async def handle_input(request: ChatRequest):
     user_id = "default_user"  # Using a default user ID for simplicity
     history = conversation_history.get(user_id, [])
     
     # Append user input to history
-    history.append({"role": "user", "content": user_input})
+    history.append({"role": "user", "content": request.message})
     
     # Generate AI response
-    response = model.generate_content(user_input)
+    response = model.generate_content(request.message)
     ai_response = response.text
     
     # Append AI response to history
