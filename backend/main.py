@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, File, UploadFile
+from fastapi import FastAPI, Request, Form, File, UploadFile 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -86,6 +86,16 @@ def format_prediction(predicted_class, confidence):
     else:
         confidence_message = f"{confidence}%"
     return {'class': predicted_class, 'confidence': confidence_message}
+
+# Root path for the application
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Plant Disease Prediction API"}
+
+# Health check endpoint
+@app.get("/ping")
+async def ping():
+    return {"message": "pong"}
 
 # Chatbot endpoint
 @app.post("/chat")
