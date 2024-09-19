@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import './Chatbot.css';
+import './chatbot.css';
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
