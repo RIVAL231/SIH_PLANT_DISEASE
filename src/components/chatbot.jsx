@@ -23,7 +23,7 @@ export function Chatbot() {
 
       try {
         // Send the user's message to the FastAPI backend
-        const response = await fetch('http://localhost:8000/chat', {
+        const response = await fetch('https://sih-plant-disease.onrender.com/chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

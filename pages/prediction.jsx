@@ -46,7 +46,7 @@ export default function PlantDiseaseClassifier() {
     formData.append('plant_type', plantType);
 
     try {
-      const response = await fetch('http://localhost:8000/predict', {
+      const response = await fetch('https://sih-plant-disease.onrender.com/predict', {
         method: 'POST',
         body: formData,
       });
