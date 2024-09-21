@@ -10,11 +10,13 @@ import numpy as np
 from PIL import Image
 from io import BytesIO
 import uvicorn
+import logging
+import json
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Fetch API key from environment variable
+# Fetch API key from environment variable for Google Generative AI
 genai_api_key = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=genai_api_key)
 model = genai.GenerativeModel('gemini-pro')
@@ -34,7 +36,7 @@ app.add_middleware(
 # In-memory store for conversation history
 conversation_history = {}
 
-# Define plant disease detection model paths and class names
+# Define model paths and class names
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS = {
     "Potato": os.path.join(BASE_DIR, "potato_model_v1.h5"),
@@ -70,6 +72,10 @@ CLASS_NAMES = {
     "Peach": ['Not Peach Leaf', 'Peach___Bacterial_spot', 'Peach___healthy']
 }
 
+# Load remedies from a JSON file
+with open('remedies.json') as f:
+    remedies = json.load(f)
+
 # Define the request body structure for the chatbot
 class ChatRequest(BaseModel):
     message: str
@@ -102,20 +108,20 @@ async def ping():
 async def handle_input(request: ChatRequest):
     user_id = "default_user"  # Using a default user ID for simplicity
     history = conversation_history.get(user_id, [])
-    
+
     # Append user input to history
     history.append({"role": "user", "content": request.message})
-    
+
     # Generate AI response
     response = model.generate_content(request.message)
     ai_response = response.text
-    
+
     # Append AI response to history
     history.append({"role": "ai", "content": ai_response})
-    
+
     # Update conversation history
     conversation_history[user_id] = history
-    
+
     return JSONResponse(content={"conversation": history})
 
 # Plant disease prediction endpoint
@@ -140,6 +146,14 @@ async def predict(file: UploadFile = File(...), plant_type: str = Form(...)):
     confidence = round(np.max(predictions[0]) * 100, 2)
 
     result = format_prediction(predicted_class, confidence)
+
+    # Get remedy for predicted class
+    remedy_data = remedies.get(predicted_class)
+    if remedy_data:
+        result['remedy'] = remedy_data
+    else:
+        result['remedy'] = {"remedies": ["No remedies found."], "home_remedies": []}
+
     return result
 
 if __name__ == "__main__":
