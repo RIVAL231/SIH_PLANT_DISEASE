@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import './Chatbot.css';
+import './chatbot.css';
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +28,10 @@ export function Chatbot() {
       setInput('');
 
       try {
+<<<<<<< HEAD
+=======
+        // Send the user's message to the FastAPI backend
+>>>>>>> 52115a7dc1f330f78216dfff4965a54b33f4dfec
         const response = await fetch('https://sih-plant-disease.onrender.com/chat', {
           method: 'POST',
           headers: {
