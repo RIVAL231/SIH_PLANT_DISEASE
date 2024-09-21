@@ -138,7 +138,7 @@ const HeroSection = () => (
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Image
-            src="/Farmer1.png"
+            src="/Farmer.png"
             alt="Crop Disease Classifier"
             width={600}
             height={400}
