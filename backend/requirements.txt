@@ -1,7 +1,6 @@
-
 fastapi==0.103.1
 uvicorn==0.22.0
-tensorflow==2.14.0
+tensorflow==2.16.1  # Updated version
 pydantic==2.2.1
 python-dotenv==1.0.0
 Pillow==10.0.0
